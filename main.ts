@@ -68,10 +68,12 @@ function run(g, q) {
   }
   return { out: o.subarray(0, ol), code: e };
 }
+const A = process.env.MAKEFUN_INPUT_DIR || "/input";
+const B = process.env.MAKEFUN_OUTPUT_DIR || "/output";
 for (let n = 1; n <= 40; n++) {
   const id = "i" + String(n).padStart(3, "0");
-  const r = run(fs.readFileSync("/input/" + id + "/program.bin"), fs.readFileSync("/input/" + id + "/input.bin"));
-  fs.mkdirSync("/output/" + id, { recursive: true });
-  fs.writeFileSync("/output/" + id + "/stdout.bin", r.out);
-  fs.writeFileSync("/output/" + id + "/exit.txt", String(r.code));
+  const r = run(fs.readFileSync(A + "/" + id + "/program.bin"), fs.readFileSync(A + "/" + id + "/input.bin"));
+  fs.mkdirSync(B + "/" + id, { recursive: true });
+  fs.writeFileSync(B + "/" + id + "/stdout.bin", r.out);
+  fs.writeFileSync(B + "/" + id + "/exit.txt", String(r.code));
 }
